@@ -31,23 +31,48 @@ function Account(name, balance, deposit, withdrawal) {
 }
 
 
-Account.prototype.addDeposit = function(deposit) {
-  this.balance = this.balance + deposit;
+BankAccount.prototype.addDeposit = function(deposit) {
+  var account = this.accounts[0];
+  return account.balance = account.balance + deposit;
 }
 
 Account.prototype.addWithdrawal = function(withdrawal) {
-  this.balance = this.balance - withdrawal;
+  return this.balance = this.balance - withdrawal;
 }
 
 // User Interface Logic ---------
+var bankAccount = new BankAccount();
 
 $(document).ready(function() {
+  $("form#new-account").submit(function(event){
+    event.preventDefault();
+    var inputtedName = $("input#new-name").val();
+    var inputtedInitialDeposit = parseInt($("input#initial-deposit").val());
+    $("input#new-name").val("");
+    $("input#initial-deposit").val("");
+    var newAccount = new Account(inputtedName, inputtedInitialDeposit);
+    bankAccount.addAccount(newAccount);
+    console.log(newAccount);
+  });
 
+  $("form#transaction").submit(function(event){
+    event.preventDefault();
+    var inputtedDeposit = parseInt($("input#new-deposit").val());
+    var inputtedWithdrawal = parseInt($("input#new-withdrawal").val());
+    var newDeposit = bankAccount.addDeposit(inputtedDeposit);
+    console.log(newDeposit);
+    $("input#new-deposit").val("");
+    $("input#new-withdrawal").val("");
 
+    // Account.addWithdrawal(inputtedWithdrawal);
+    // console.log(bankAccount);
+    // console.log(inputtedDeposit);
+  });
+
+  $("form#balance").click(function(event){
+    event.preventDefault();
+    var inputtedInitialDeposit = parseInt($("input#initial-deposit").val());
+    $("#new-balance").text(inputtedInitialDeposit);
+    console.log(inputtedInitialDeposit);
+  });
 });
-
-var bankAccount = new BankAccount();
-var accountOne = new Account("Tim", 300);
-bankAccount.addAccount(accountOne);
-accountOne.addDeposit(50);
-accountOne.addWithdrawal(10);
