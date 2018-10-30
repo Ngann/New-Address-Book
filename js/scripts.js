@@ -101,7 +101,7 @@ function showAddress(addressId) {
   $(".home-address").html(address.homeAddress);
   var buttons = $("#buttons");
   buttons.empty();
-  buttons.append("<button class='deleteButton' id=" +  + contact.id + ">Delete</button>");
+  buttons.append("<button class='addressButton' id=" +  + contact.id + ">Update Address</button>");
 }
 
 function attachContactListeners() {
@@ -130,19 +130,9 @@ $(document).ready(function() {
     $("input#new-email").val("");
     $("input#new-home-address").val("");
     var addressArray = [];
-    addressArray.push(inputtedHomeAdress);
+    addressArray.push(inputtedHomeAdress , inputtedEmail);
     var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, addressArray);
-    // newContact.addressPush(inputtedHomeAdress);
-    // for (var i = 0; i < newContact.addresses.length; i++) {
-    //   console.log(i);
-    //   console.log("contact Object address:" + newContact.addresses);
-    // }
-    var newAddress = new Address(inputtedEmail, inputtedHomeAdress);
     addressBook.addContact(newContact);
-    contactAddress.addressPush(newAddress);
-    console.log(newAddress);
-    //newAddress.addAddress(newContact);
-    //console.log("trying for address object:" + newContact.addresses);
     displayContactDetails(addressBook);
 
   })
